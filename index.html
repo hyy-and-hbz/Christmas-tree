@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Epic Christmas Tree</title>
+    <style>
+        body {
+            background: linear-gradient(to bottom, #000033, #003366);
+            color: #ffffff;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        .tree {
+            display: inline-block;
+            text-align: center;
+            line-height: 1;
+            margin-top: 50px;
+            position: relative;
+            animation: sway 3s infinite ease-in-out;
+        }
+        @keyframes sway {
+            0%, 100% { transform: rotate(-2deg); }
+            50% { transform: rotate(2deg); }
+        }
+        .tree .row {
+            font-size: 30px;
+            letter-spacing: 2px;
+            white-space: nowrap;
+        }
+        .tree .row .star {
+            color: gold;
+            animation: sparkle 1s infinite;
+        }
+        .tree .row .light {
+            color: red;
+            animation: blink 2s infinite;
+        }
+        .tree .row .normal {
+            color: #00ff00;
+        }
+        @keyframes sparkle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.2; }
+        }
+        .tree-trunk {
+            font-size: 30px;
+            color: brown;
+        }
+        .gifts {
+            margin-top: 20px;
+            animation: float 5s infinite ease-in-out;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .gifts .gift {
+            display: inline-block;
+            width: 80px;
+            height: 60px;
+            background: linear-gradient(to bottom, #ff0000, #880000);
+            border: 3px solid #ffffff;
+            margin: 10px;
+            position: relative;
+            border-radius: 5px;
+        }
+        .gifts .gift:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            height: 10px;
+            background: #ffffff;
+            border-radius: 50%;
+        }
+        .snowflake {
+            position: absolute;
+            color: white;
+            font-size: 20px;
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-100px); }
+            100% { transform: translateY(110vh); }
+        }
+    </style>
+</head>
+<body>
+    <h1>🎄 Epic Christmas Celebration 🎄</h1>
+    <div class="tree" id="tree"></div>
+    <div class="tree-trunk">||</div>
+    <div class="gifts">
+        <div class="gift"></div>
+        <div class="gift"></div>
+        <div class="gift"></div>
+    </div>
+
+    <script>
+        function generateTree(height) {
+            const treeElement = document.getElementById('tree');
+            for (let i = 1; i <= height; i++) {
+                const row = document.createElement('div');
+                row.classList.add('row');
+                for (let j = 0; j < height - i; j++) {
+                    row.innerHTML += '&nbsp;'; // 空格
+                }
+                for (let k = 0; k < (2 * i - 1); k++) {
+                    const isStar = Math.random() < 0.1;
+                    const isLight = Math.random() < 0.3;
+                    if (isStar) {
+                        row.innerHTML += '<span class="star">★</span>';
+                    } else if (isLight) {
+                        row.innerHTML += '<span class="light">o</span>';
+                    } else {
+                        row.innerHTML += '<span class="normal">*</span>';
+                    }
+                }
+                treeElement.appendChild(row);
+            }
+        }
+
+        function createSnowflakes() {
+            for (let i = 0; i < 100; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.classList.add('snowflake');
+                snowflake.innerHTML = '❄';
+                snowflake.style.left = Math.random() * 100 + 'vw';
+                snowflake.style.animationDuration = Math.random() * 3 + 2 + 's';
+                snowflake.style.fontSize = Math.random() * 10 + 15 + 'px';
+                document.body.appendChild(snowflake);
+            }
+        }
+
+        // 设置圣诞树高度
+        const treeHeight = 15;
+        generateTree(treeHeight);
+        createSnowflakes();
+    </script>
+</body>
+</html>
